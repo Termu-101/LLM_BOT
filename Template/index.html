@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interview Bot</title>
+  </head>
+  <body>
+    {% if not uploaded_resume %}
+      <h1>Upload Your Resume</h1>
+      <p>Please upload your resume (PDF only) to start the interview.</p>
+      <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="resume" accept=".pdf">
+        <input type="submit" value="Upload">
+      </form>
+    {% else %}
+      <h1>Interview Started</h1>
+      <p>Please respond to the question below:</p>
+      <ul>
+        {% for entry in conversation_history %}
+          {% if entry.role == "user" %}
+            <li><b>You:</b> {{ entry.content }}</li>
+          {% else %}
+            <li><b>Bot:</b> {{ entry.content }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <!-- <p>Bot Question: {{ bot_question }}</p> -->
+      <form action="" method="post">
+        <input type="text" name="user_input" placeholder="Enter your response">
+        <input type="submit" value="Submit">
+      </form>
+    {% endif %}
+  </body>
+</html>
